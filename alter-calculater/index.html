@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111918">
+  <title>UMBAC | Универсальный вычислительный калькулятор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js?v=umbac2" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Radix Lab, главная">
+        <span class="brand-mark">R<span>.</span></span>
+        <span class="brand-name">UMBAC <b>ENGINE</b></span>
+      </a>
+      <div class="topbar-meta"><span class="live-dot"></span> ЛОКАЛЬНЫЙ РЕЖИМ <span class="meta-divider">/</span> PYTHON · NUMPY · SCIPY</div>
+      <a class="source-link" href="/README.md">О проекте <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="eyebrow"><span>01</span> ВЫЧИСЛИТЕЛЬНАЯ СРЕДА</div>
+        <h1>Числа. Формулы.<br><em>Другой масштаб.</em></h1>
+        <p>Точный перевод оснований и символьная математика в одном рабочем пространстве.</p>
+      </section>
+
+      <nav class="mode-tabs" aria-label="Режим калькулятора">
+        <button class="mode-tab active" type="button" data-panel="convert-panel"><span class="tab-index">A</span> Системы счисления</button>
+        <button class="mode-tab" type="button" data-panel="science-panel"><span class="tab-index">B</span> Научные вычисления</button>
+      </nav>
+
+      <section class="workbench">
+        <div class="workbench-main">
+          <section class="tool-panel active" id="convert-panel" aria-labelledby="convert-title">
+            <div class="panel-heading">
+              <div><div class="section-kicker">RADIX CONVERTER</div><h2 id="convert-title">Преобразование числа</h2></div>
+              <span class="status-label"><span class="live-dot"></span> ТОЧНАЯ АРИФМЕТИКА</span>
+            </div>
+            <form id="convert-form" class="convert-form">
+              <label class="field-label" for="number-input">Исходное значение</label>
+              <div class="number-entry">
+                <input id="number-input" class="number-input mono" type="text" value="101101.101" autocomplete="off" spellcheck="false" aria-label="Число для преобразования">
+                <label class="base-select-wrap" for="source-base"><span>ИЗ</span><select id="source-base" aria-label="Исходная система счисления"></select></label>
+              </div>
+              <div class="conversion-arrow" aria-hidden="true"><span></span><button type="button" id="swap-bases" title="Поменять основания местами" aria-label="Поменять основания местами">⇅</button><span></span></div>
+              <div class="result-head"><label class="field-label" for="converted-value">Результат</label><span id="result-badge" class="result-badge">ОЖИДАНИЕ</span></div>
+              <div class="result-entry">
+                <output id="converted-value" class="converted-value mono" aria-live="polite">—</output>
+                <label class="base-select-wrap target-select" for="target-base"><span>В</span><select id="target-base" aria-label="Целевая система счисления"></select></label>
+                <button type="button" id="copy-result" class="icon-button" title="Копировать результат" aria-label="Копировать результат" disabled>⧉</button>
+              </div>
+              <div class="result-note" id="convert-note" aria-live="polite">Введите число и выберите основания.</div>
+              <div id="convert-error" class="error-message" role="alert"></div>
+              <button class="primary-button" type="submit"><span>Преобразовать</span><span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="base-strip"><span>ОСНОВАНИЯ</span><div id="base-chips"></div></div>
+          </section>
+
+          <section class="tool-panel" id="science-panel" aria-labelledby="science-title">
+            <div class="panel-heading">
+              <div><div class="section-kicker">SYMBOLIC ENGINE</div><h2 id="science-title">Научный калькулятор</h2></div>
+              <span class="status-label">SYMPY ENGINE</span>
+            </div>
+            <form id="science-form" class="science-form">
+              <label class="field-label" for="operation-select">Вычислительный модуль</label>
+              <select id="operation-select" class="operation-select">
+                <option value="analysis.evaluate">Выражение</option>
+                <option value="analysis.derive">Производная</option>
+                <option value="analysis.integrate">Интеграл</option>
+                <option value="analysis.limit">Предел</option>
+                <option value="analysis.taylor">Ряд Тейлора</option>
+                <option value="analysis.fourier">Ряд Фурье</option>
+                <option value="analysis.ode">Обыкновенное ДУ</option>
+                <option value="analysis.simplify_check">Проверка тождества</option>
+                <option value="quantum.schrodinger">Уравнение Шрёдингера</option>
+                <option value="quantum.eigen">Спектр матрицы</option>
+                <option value="quantum.entropy">Энтропия состояния</option>
+                <option value="quantum.entanglement">Запутанность Белла</option>
+                <option value="astro.schwarzschild">Метрика Шварцшильда</option>
+                <option value="astro.friedmann">Космология Фридмана</option>
+                <option value="astro.chandrasekhar">Предел Чандрасекара</option>
+                <option value="astro.lane_emden">Модель Лейна—Эмдена</option>
+                <option value="constants.get">Физическая константа</option>
+              </select>
+              <div class="scientific-bases">
+                <label class="base-select-wrap" for="expression-base"><span>ОСНОВАНИЕ ВВОДА</span><select id="expression-base" aria-label="Основание чисел в выражении"></select></label>
+                <label class="base-select-wrap" for="expression-output-base"><span>ВЫВОД</span><select id="expression-output-base" aria-label="Основание числового результата"></select></label>
+              </div>
+              <label class="field-label" for="expression-input">Формула или выражение</label>
+              <textarea id="expression-input" class="expression-input mono" rows="3" spellcheck="false" aria-label="Математическое выражение">integrate(sin(x)**2, x)</textarea>
+              <label class="field-label params-label" for="params-input">Параметры операции · JSON</label>
+              <textarea id="params-input" class="params-input mono" rows="2" spellcheck="false" placeholder='Например: {"var":"x","point":0}' aria-label="Дополнительные параметры операции">{}</textarea>
+              <div class="function-row" aria-label="Быстрые математические функции">
+                <button type="button" data-insert="sin()">sin</button><button type="button" data-insert="cos()">cos</button><button type="button" data-insert="sqrt()">√</button><button type="button" data-insert="diff(, x)">d/dx</button><button type="button" data-insert="integrate(, x)">∫</button><button type="button" data-insert="limit(, x, 0)">lim</button>
+              </div>
+              <div class="result-card"><span class="field-label">РЕЗУЛЬТАТ</span><output id="exact-result" class="math-result mono" aria-live="polite">—</output><div class="approx-line"><span>МЕТОД / ДАННЫЕ</span><output id="approx-result" class="mono">—</output></div></div>
+              <div id="science-error" class="error-message" role="alert"></div>
+              <button class="primary-button" type="submit"><span>Вычислить</span><span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="examples"><span>ПРИМЕРЫ</span><button type="button" data-expression="x*sin(x)" data-operation="analysis.derive" data-params='{"var":"x"}'>Производная</button><button type="button" data-expression="sin(x)/x" data-operation="analysis.limit" data-params='{"var":"x","point":0}'>Предел</button><button type="button" data-expression="sin(x)**2" data-operation="analysis.integrate" data-params='{"var":"x","limits":[0,3.141592653589793]}'>Интеграл</button><button type="button" data-expression="harmonic:1" data-operation="quantum.schrodinger" data-params='{"x_min":-8,"x_max":8,"n_points":600,"n_states":4}'>Осциллятор</button><button type="button" data-expression="" data-operation="astro.friedmann" data-params='{"H0":70,"Om":0.3,"OL":0.7,"z":1}'>Расстояние z=1</button><button type="button" data-expression="" data-operation="quantum.entanglement" data-params='{"kind":"phi_plus"}'>Состояние Белла</button><button type="button" data-expression="solve(x**2 - 2, x)" data-operation="analysis.evaluate">Корни уравнения</button><button type="button" data-expression="det(Matrix([[1, 2], [3, 4]]))" data-operation="analysis.evaluate">Определитель</button></div>
+          </section>
+        </div>
+
+        <aside class="reference-rail">
+          <div class="rail-section system-card">
+            <div class="rail-title"><span>01 / СИСТЕМЫ</span><span class="rail-mark">↗</span></div>
+            <div class="system-list">
+              <div><span class="system-number">02</span><span>Двоичная</span><span class="system-tag">BIT</span></div>
+              <div><span class="system-number">08</span><span>Восьмеричная</span><span class="system-tag">OCT</span></div>
+              <div><span class="system-number">10</span><span>Десятичная</span><span class="system-tag">DEC</span></div>
+              <div><span class="system-number">16</span><span>Шестнадцатеричная</span><span class="system-tag">HEX</span></div>
+              <div><span class="system-number">32</span><span>Тридцатидвоичная</span><span class="system-tag">BASE</span></div>
+              <div><span class="system-number">60</span><span>Шестидесятеричная</span><span class="system-tag">SEX</span></div>
+            </div>
+          </div>
+          <div class="rail-section alphabet-card">
+            <div class="rail-title"><span>02 / АЛФАВИТ BASE 64</span><span class="rail-mark">Aa</span></div>
+            <div class="alphabet mono">0–9 <span>·</span> A–Z <span>·</span> a–z <span>·</span> + /</div>
+            <p>Значения символов: 0–9, A–Z = 10–35, a–z = 36–61, + = 62, / = 63. Для периодических дробей доступна скобочная запись.</p>
+          </div>
+          <div class="rail-section capabilities-card">
+            <div class="rail-title"><span>03 / МАТЕМАТИКА</span><span class="rail-mark">∑</span></div>
+            <div class="capability-grid"><span>Производные</span><span>Интегралы</span><span>Пределы</span><span>Уравнения</span><span>Матрицы</span><span>Комплексные</span></div>
+            <p class="constant-note">Также доступны физические константы: <span class="mono">c, G, h, ℏ, k_B, m_e, M_sun, AU</span> и другие.</p>
+          </div>
+          <div class="rail-foot"><span class="foot-square"></span><span>ВЫЧИСЛЕНИЯ ВЫПОЛНЯЮТСЯ ЛОКАЛЬНО</span></div>
+        </aside>
+      </section>
+    </main>
+    <footer class="footer"><span>RADIX LAB <span class="footer-sep">/</span> SCIENTIFIC CALCULATOR</span><span>PYTHON · C++ · FORTRAN</span></footer>
+  </div>
+</body>
+</html>
